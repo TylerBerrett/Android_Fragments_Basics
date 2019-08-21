@@ -1,5 +1,6 @@
 package com.lambdaschool.congressfragmentsproject
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,10 +18,21 @@ class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListF
         bundle.putString("key", item.id)
         fragment.arguments = bundle
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.test_first_layout, fragment)
-            .addToBackStack(null)
-            .commit()
+
+
+        if (!resources.getBoolean(R.bool.is_tablet)){
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.test_first_layout, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
+
+        else{
+
+            val intent = Intent(this, PartFive::class.java)
+            intent.putExtra("key2",item.id)
+            startActivity(intent)
+        }
 
     }
 
@@ -34,14 +46,14 @@ class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListF
             .commit()
 
         // get an overview list for all members of congress
-        val allMembers: ArrayList<CongresspersonOverview> = CongressDao.allMembers
+        /*val allMembers: ArrayList<CongresspersonOverview> = CongressDao.allMembers
 
         // get details for a single member of congress
         val singleMemberDetails: CongresspersonDetails? = allMembers[0].id?.let { CongressDao.getMemberDetails(it) }
 
 
         // get congressperson portrait
-        val image: Bitmap? = allMembers[0].id?.let { CongressDao.getImage(it) }
+        val image: Bitmap? = allMembers[0].id?.let { CongressDao.getImage(it) }*/
 
     }
 }
