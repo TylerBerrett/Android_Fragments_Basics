@@ -4,10 +4,12 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 
 
 import com.lambdaschool.congressfragmentsproject.CongresspersonOverviewFragment.OnListFragmentInteractionListener
+import com.lambdaschool.congressfragmentsproject.api.CongressDao
 import com.lambdaschool.congressfragmentsproject.api.CongresspersonOverview
 
 import kotlinx.android.synthetic.main.fragment_congresspersonoverview.view.*
@@ -41,8 +43,8 @@ class MyCongresspersonOverviewRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.title
+        holder.mIdView.setImageBitmap(item.id?.let { CongressDao.getImage(it) })
+        holder.mContentView.text = "${item.firstName} ${item.lastName}"
 
         with(holder.mView) {
             tag = item
@@ -53,7 +55,7 @@ class MyCongresspersonOverviewRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_number
+        val mIdView: ImageView = mView.item_number
         val mContentView: TextView = mView.content
 
         override fun toString(): String {
