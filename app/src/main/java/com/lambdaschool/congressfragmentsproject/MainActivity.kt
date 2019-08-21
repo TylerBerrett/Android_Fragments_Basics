@@ -3,6 +3,7 @@ package com.lambdaschool.congressfragmentsproject
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.ListFragment
 import com.lambdaschool.congressfragmentsproject.api.CongressDao
 import com.lambdaschool.congressfragmentsproject.api.CongresspersonDetails
 import com.lambdaschool.congressfragmentsproject.api.CongresspersonOverview
@@ -17,7 +18,8 @@ class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListF
         fragment.arguments = bundle
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.test_frame_layout, fragment)
+            .replace(R.id.test_first_layout, fragment)
+            .addToBackStack(null)
             .commit()
 
     }
@@ -25,6 +27,11 @@ class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListF
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val fragment = CongresspersonOverviewFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.test_first_layout, fragment)
+            .commit()
 
         // get an overview list for all members of congress
         val allMembers: ArrayList<CongresspersonOverview> = CongressDao.allMembers
@@ -35,5 +42,6 @@ class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListF
 
         // get congressperson portrait
         val image: Bitmap? = allMembers[0].id?.let { CongressDao.getImage(it) }
+
     }
 }
