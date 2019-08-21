@@ -48,11 +48,11 @@ class DisplayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val idPerson = arguments?.getString("key")
+        /*val idPerson = arguments?.getString("key")
         val person = CongressDao.getMemberDetails(idPerson.toString())
         picture.setImageBitmap(CongressDao.getImage(idPerson.toString()))
         full_name.text = person.firstName + " " + person.lastName
-        plz_kill_me.text = person.currentParty
+        plz_kill_me.text = person.currentParty*/
     }
 
     companion object {
