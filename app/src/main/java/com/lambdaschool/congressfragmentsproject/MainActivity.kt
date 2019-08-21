@@ -10,7 +10,16 @@ import java.util.ArrayList
 
 class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListFragmentInteractionListener {
     override fun onListFragmentInteraction(item: CongresspersonOverview) {
-        println("test")
+        val fragment = DisplayFragment()
+        val bundle = Bundle()
+
+        bundle.putString("key", item.id)
+        fragment.arguments = bundle
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.test_frame_layout, fragment)
+            .commit()
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +31,7 @@ class MainActivity : AppCompatActivity(), CongresspersonOverviewFragment.OnListF
 
         // get details for a single member of congress
         val singleMemberDetails: CongresspersonDetails? = allMembers[0].id?.let { CongressDao.getMemberDetails(it) }
+
 
         // get congressperson portrait
         val image: Bitmap? = allMembers[0].id?.let { CongressDao.getImage(it) }
